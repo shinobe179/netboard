@@ -1,0 +1,24 @@
+<%= render 'shared/header' %>
+<h2>Racks</h2>
+<%= link_to "Add", new_network_rack_path %>
+<table>
+    <theader>
+        <th>name</th>
+        <th>edit</th>
+        <th>height</th>
+        <th>datacenter</th>
+        <th>number of devices</th>
+    </theader>
+    <tbody>
+    <% @racks.each do |rack| %>
+        <% dc = Datacenter.find(rack.datacenter_id) %>
+        <tr>
+            <td><%= link_to rack.name, rack %></td>
+            <td><%= link_to "edit", edit_network_rack_path(rack) %></td>
+            <td><%= rack.height %></td>
+            <td><%= link_to dc.name, datacenter_path(dc) %></td>
+            <td><%= Device.where(network_rack_id: rack.id).count %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

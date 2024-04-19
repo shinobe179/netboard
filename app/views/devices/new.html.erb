@@ -1,0 +1,40 @@
+<%= render 'shared/header' %>
+<h2>New Device</h2>
+<%= form_with(model: @device) do |form| %>
+    <% if @device.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@device.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+        <ul>
+          <% @device.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :description, style: "display: block" %>
+      <%= form.text_area :description  %>
+    </div>
+
+    <div>
+      <%= form.label :device_type_id, style: "display: block" %>
+      <%= form.collection_select :device_type_id, DeviceType.all, :id, :name %>
+    </div>
+
+    <div>
+      <%= form.label :network_rack_id, style: "display: block" %>
+      <%= form.collection_select :network_rack_id, NetworkRack.all, :id, :name %>
+    </div>
+
+    <div>
+      <%= form.submit "Create device" %>
+    </div>
+  <% end %>
+  

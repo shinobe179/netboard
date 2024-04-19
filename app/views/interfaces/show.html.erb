@@ -1,0 +1,24 @@
+<%= render 'shared/header' %>
+<h2>Interface: <%= @interface.name %></h2>
+<%= link_to "Edit", edit_interface_path %>
+<h3>Overview</h3>
+<div id="overview-table">
+    <table>
+        <tr>
+            <th>name</th>
+            <td><%= @interface.name %></td>
+        </tr>
+        <tr>
+            <th>description</th>
+            <td><%= @interface.description %></td>
+        </tr>
+        <tr>
+            <th>IP Address</th>
+            <td><%= @interface.ipaddr %></td>
+        </tr>
+        <th>Device</th>
+        <td><%= link_to @device.name, device_path(@device) %></td>
+    </tr>
+    </table>
+</div>
+<%= link_to "Back", device_path(@device) %>

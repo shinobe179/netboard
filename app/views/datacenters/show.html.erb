@@ -1,0 +1,37 @@
+<%= render 'shared/header' %>
+<h2>Datacenter: <%= @datacenter.name %></h2>
+<%= link_to "Edit", edit_datacenter_path %>
+<h3>Overview</h3>
+<div id="overview-table">
+    <table>
+        <tr>
+            <th>location</th>
+            <td><%= @datacenter.location %></td>
+        </tr>
+        <tr>
+            <th>created at</th>
+            <td><%= @datacenter.created_at %></td>
+        </tr>
+        <tr>
+            <th>updated at</th>
+            <td><%= @datacenter.updated_at %></td>
+        </tr>
+    </table>
+</div>
+<h3>Racks</h3>
+<%= link_to "Add rack", "/network_racks/new/?datacenter_id=#{@datacenter.id}" %>
+<table>
+    <theader>
+        <th>name</th>
+        <th>height</th>
+    </theader>
+    <tdody>
+    <% @network_racks.each do |rack| %>
+        <tr>
+            <td><%= link_to rack.name, rack %></td>
+            <td><%= rack.height %></td>
+        </tr>
+    <% end %>
+    </tdody>
+</table>
+<%= link_to "Back", datacenters_path %>

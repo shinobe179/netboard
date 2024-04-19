@@ -1,0 +1,29 @@
+<%= render 'shared/header' %>
+<h2>Edit Device: <%= @device.name %></h2>
+<%= form_with(model: @device) do |form| %>
+    <% if @device.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(device.errors.count, "error") %> prohibited this datacenter from being saved:</h2>
+  
+        <ul>
+          <% @device.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div>
+      <%= form.label :name, style: "display: block", :placeholder =>"#{@device.name}" %>
+      <%= form.text_field :name %>
+    </div>
+  
+    <div>
+      <%= form.label :location, style: "display: block", :placeholder =>"#{@device.description}" %>
+      <%= form.text_area :description %>
+    </div>
+  
+    <div>
+      <%= form.submit %>
+    </div>
+  <% end %>

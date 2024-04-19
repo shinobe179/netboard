@@ -1,0 +1,27 @@
+<%= render 'shared/header' %>
+<h2>Devices</h2>
+<%= link_to "Add", new_device_path %>
+<table>
+    <theader>
+        <th>name</th>
+        <th>edit</th>
+        <th>device type</th>
+        <th>datacenter</th>
+        <th>rack</th>
+        <th>number of interfaces</th>
+    </theader>
+    <tbody>
+    <% @devices.each do |device| %>
+        <% rack = NetworkRack.find(device.network_rack_id)
+           dc = Datacenter.find(rack.datacenter_id) %>
+        <tr>
+            <td><%= link_to device.name, device %></td>
+            <td><%= link_to "edit", edit_device_path(device) %></td>
+            <td><%= DeviceType.find(device.device_type_id).name %></td>
+            <td><%= link_to dc.name, datacenter_path(dc) %></td>
+            <td><%= link_to rack.name, network_rack_path(rack) %></td>
+            <td><%= Interface.where(device_id: device.id).count %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>

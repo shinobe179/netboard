@@ -1,0 +1,47 @@
+<%= render 'shared/header' %>
+<h2>Device: <%= @device.name %></h2>
+<h3>Overview</h3>
+    <div id="overview-table">
+        <table>
+            <tr>
+                <th>datacenter</th>
+                <td><%= link_to @dc.name, @dc %></td>
+            </tr>
+            <tr>
+                <th>rack</th>
+                <td><%= link_to @nwrack.name, @nwrack %></td>
+            </tr>
+            <tr>
+                <th>type</th>
+                <td><%= @device_type %></td>
+            </tr>
+        </table>
+    </div>
+<h3>Interfaces</h3>
+    <%= link_to "Add interface", "/interfaces/new/?device_id=#{@device.id}" %>
+    <table>
+        <theader>
+            <th>name</th>
+            <th>edit</th>
+            <th>ipaddr</th>
+            <th>peer device</th>
+            <th>peer interface</th>
+            <th>description</th>
+        </theader>
+        <tbody>
+        <% @interfaces.each do |iface| %>
+            <% peer_iface = Interface.find(iface.peer_interface_id)
+               peer_device = Device.find(peer_iface.device_id) %>
+            <tr>
+                <% peer_device = Device.find(Interface.find(iface.peer_interface_id).device_id) %>
+                <td><%= link_to iface.name, iface %></td>
+                <td><%= link_to "edit", edit_interface_path(iface) %></td>
+                <td><%= iface.ipaddr %></td>
+                <td><%= link_to peer_device.name, device_path(peer_device.id) %></td>
+                <td><%= peer_iface.name %></td>
+                <td><%= iface.description %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    </table>
+<%= link_to "Back", network_racks_path %>

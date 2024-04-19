@@ -1,0 +1,35 @@
+<%= render 'shared/header' %>
+<h2>New Rack</h2>
+<%= form_with(model: @rack) do |form| %>
+    <% if @rack.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(rack.errors.count, "error") %> prohibited this rack from being saved:</h2>
+
+        <ul>
+          <% @rack.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div>
+      <%= form.label :name, style: "display: block" %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :height, style: "display: block" %>
+      <%= form.text_field :height, value: 42  %>
+    </div>
+
+    <div>
+      <%= form.label :datacenter, style: "display: block" %>
+      <%= form.collection_select :datacenter_id, Datacenter.all, :id, :name, selected: @dcid %>
+    </div>
+
+    <div>
+      <%= form.submit "Create Rack" %>
+    </div>
+  <% end %>
+  

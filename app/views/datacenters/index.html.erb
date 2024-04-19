@@ -1,0 +1,21 @@
+<%= render 'shared/header' %>
+<h2>Datacenters</h2>
+<%= link_to "Add", new_datacenter_path %>
+<table>
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>location</th>
+            <th>number of racks</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <% @datacenters.each do |dc| %>
+            <td><%= link_to dc.name, dc %></td>
+            <td><%= dc.location %></td>
+            <td><%= NetworkRack.where(datacenter_id: dc.id).count %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

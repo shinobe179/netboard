@@ -1,0 +1,33 @@
+<%= render 'shared/header' %>
+<h2>Rack: <%= @nwrack.name %></h2>
+<h3>Overview</h3>
+    <div id="overview-table">
+        <table>
+            <tr>
+                <th>datacenter</th>
+                <td><%= link_to @dc.name, @dc %></td>
+            </tr>
+            <tr>
+                <th>height</th>
+                <td><%= @nwrack.height %></td>
+            <tr>
+        </table>
+    </div>
+<h3>Devices</h3>
+    <table>
+        <theader>
+            <th>name</th>
+            <th>edit</th>
+            <th>device type</th>
+        </theader>
+        <tbody>
+        <% @devices.each do |device| %>
+            <tr>
+                <td><%= link_to device.name, device %></td>
+                <td><%= link_to "edit", edit_device_path(device) %></td>
+                <td><%= DeviceType.find(device.device_type_id).name %></td>
+            </tr>
+        <% end %>
+        </tbody>
+    <table>
+<%= link_to "Back", network_racks_path %>
