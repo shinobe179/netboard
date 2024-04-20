@@ -34,13 +34,13 @@
     </div>
 
     <div>
-      <%= form.label :peer_device_id, style: "display: block" %>
-      <%= form.collection_select :peer_device_id, Device.all, :id, :name %>
+      <%= form.label "Peer Device", style: "display: block" %>
+      <%= form.collection_select nil, Device.all, :id, :name, {}, {class: 'form-select', data: {action: "change->select#change"}} %>
     </div>
 
     <div>
       <%= form.label :peer_interface_id, style: "display: block" %>
-      <%= form.collection_select :peer_interface_id, Interface.all, :id, :name %>
+      <%= form.collection_select :peer_interface_id, (form.object.interface ? Interface.where(device_id: form.object.interface.device_id) : []), :id, :name, {}, { id: nil, class: 'form-select', data: { select_target: "select" } } %>
     </div>
 
     <div>

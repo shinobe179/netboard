@@ -24,6 +24,14 @@ class InterfacesController < ApplicationController
   def destroy
   end
 
+  def peer_interfaces
+    @target = params[:target]
+    @interfaces = Interface.where(device_id: params[:peer_device_id])
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
   def interface_params
     params.require(:interface).permit(:name, :description, :ipaddr, :device_id, :peer_interface_id)
