@@ -35,8 +35,8 @@
 
     <div data-controller="interface">
       <div>
-        <%= form.label :device, style: "display: block" %>
-        <%= form.collection_select :id, Device.all, :id, :name, {}, { data: { action: "load@document->interface#change change->interface#change" } } %>
+        <%= form.label :peer_device, style: "display: block" %>
+        <%= form.collection_select :id, Device.all, :id, :name, {}, { data: { action: "change->interface#change" } } %>
       </div>
 
       <div>
