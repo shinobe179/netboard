@@ -33,14 +33,16 @@
       <%= form.text_field :ipaddr %>
     </div>
 
-    <div>
-      <%= form.label :peer_device_id, style: "display: block" %>
-      <%= form.collection_select :peer_device_id, Device.all, :id, :name %>
-    </div>
+    <div data-controller="interface">
+      <div>
+        <%= form.label :peer_device, style: "display: block" %>
+        <%= form.collection_select :id, Device.all, :id, :name, {}, { data: { action: "change->interface#change" } } %>
+      </div>
 
-    <div>
-      <%= form.label :peer_interface_id, style: "display: block" %>
-      <%= form.collection_select :peer_interface_id, Interface.all, :id, :name %>
+      <div>
+        <%= form.label :peer_interface_id, style: "display: block" %>
+        <%= form.select :peer_interface_id, [], {}, { data: { interface_target: "peerInterfaces" } } %>
+      </div>
     </div>
 
     <div>

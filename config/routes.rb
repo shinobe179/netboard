@@ -2,7 +2,11 @@ Rails.application.routes.draw do
   resources :datacenters
   resources :network_racks
   resources :devices
-  resources :interfaces
+  resources :interfaces do
+    collection do
+      get :peer_interfaces
+    end
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -16,12 +16,31 @@ class InterfacesController < ApplicationController
   end
 
   def create
+    @interface = Interface.new(interface_params)
+
+    respond_to do |format|
+      if @interface.save
+        format.html { redirect_to interface_url(@interface) }
+        format.json { render :show, status: :created, location: @interface }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: interface.errors, status: unprocessable_entity }
+      end
+    end
   end
 
   def update
   end
 
   def destroy
+  end
+
+  def peer_interfaces
+    @target = params[:target]
+    @interfaces = Interface.where(device_id: params[:device_id])
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
